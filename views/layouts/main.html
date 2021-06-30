@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "./include-head.html" %}
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- Preloader -->
+{% include "../ext/ext-preloader.html" %}
+
+    <!-- Navbar -->
+    {% include "./include-nar-bar.html" %}
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+        {% include "./include-side-bar.html" %}
+    <!-- Content Wrapper. Contains page content -->
+    <!-- /.content-wrapper -->
+    {% block body %}
+    {% endblock %}
+
+    {% include "./include-footer.html" %}
+
+    <!-- Control Sidebar -->
+    {% include "./control-sidebar.html" %}
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+{% include "./js.html" %}
+</body>
+</html>
