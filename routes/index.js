@@ -7,7 +7,6 @@ const conTroller = require('../controllers/route.controller')
 
 router.get('/table/:page', isLog.isLogged, conTroller.sachTongHop);
 router.get('/table/', isLog.isLogged, conTroller.sachTongHop);
-
 router.get('/tablesales/:page', isLog.isLogged, conTroller.sachThanhLy);
 router.get('/tablesales/', isLog.isLogged, conTroller.sachThanhLy);
 

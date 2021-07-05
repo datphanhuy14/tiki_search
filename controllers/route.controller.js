@@ -1,8 +1,9 @@
 const db = require('../db');
+const {Op} = require("sequelize");
 
 let index = function (req, res, next) {
     console.log(req.user)
-    res.render('index', {user: req.user, all : count});
+    res.render('index', {user: req.user});
 }
 let sachTongHop = async function(req, res) {
     let limitPagi = 20;
@@ -42,6 +43,18 @@ let sachThanhLy = async function(req, res) {
     let countPage = Math.ceil(getAll.count / limitPagi)
     res.render('tablesales', {data: getAll.rows,pages: countPage , current : parseInt(page),entries: getAll.count, user : req.user});
 }
-module.exports = {
-    sachThanhLy,sachTongHop,index
+let tikiCheck = async () => {
+    let _tikiCheck = await db.tbook.findAndCountAll(
+        {
+            where : {
+                discount_rate : 60
+            },
+            raw : true
+        }
+    )
+    console.log(_tikiCheck);
 }
+tikiCheck();
+// module.exports = {
+//     sachThanhLy,sachTongHop,index,tikiCheck
+// }

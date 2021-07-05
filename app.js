@@ -11,8 +11,10 @@ let RedisStore = require('connect-redis')(session);
 let redisClient = redis.createClient();
 const db = require('./db');
 const exToJson = require('./excel_book')
+const axiosTiki = require('./axios')
 
 db.sequelize.sync().then(async ()=>{
+    await axiosTiki;
     await db.user.findOrCreate({
         where: {
             username: 'admin'
