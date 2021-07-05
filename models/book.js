@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   book.init({
-    ma_sach: DataTypes.STRING,
+    ma_sach: DataTypes.BIGINT,
     ten_sach: DataTypes.TEXT,
-    gia_bia: DataTypes.STRING,
-    phan_loai: DataTypes.BIGINT
+    gia_bia: DataTypes.BIGINT,
+    phan_loai: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'book',

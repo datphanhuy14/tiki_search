@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -22,7 +22,8 @@
             <div class="navbar-search-block">
                 <form class="form-inline" method="get" action="/search">
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search"
+                               aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
@@ -36,35 +37,36 @@
             </div>
         </li>
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+        {% if user %}
+            <a class="nav-link" data-toggle="dropdown" href="/logout">
                 <i class="fas fa-door-open"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
+                <span class="badge badge-danger navbar-badge">Logout</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <div class="card two bg-white px-5 py-4 mb-3">
-                    <form class="form-signin" action="/login" method="post">
-                        <div class="form-group">
-                            <input type="username" id="username" name="username" class="form-control"  required autofocus>
-                            <label class="form-control-placeholder" for="username">Username</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="inputPassword" name="password" class="form-control"  required>
-                            <label class="form-control-placeholder" for="inputPassword">Password</label>
-                        </div>
-                        <input id="submitLocal" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" value="Log in">
-                    </form>
-                    {#            <from class="form-signin" method="post" action="/login">#}
-                    {#                <div class="form-group"><input type="username" name="username" class="form-control" id="username" required><label#}
-                    {#                            class="form-control-placeholder" for="username">Username</label></div>#}
-                    {#                <div class="form-group"><input type="password" name="password" class="form-control" id="password" required><label#}
-                    {#                            class="form-control-placeholder" for="password">Password</label></div>#}
-                    {#                <button type="submit" class="btn btn-primary btn-block btn-lg mt-1 mb-2"><span>Get started<i#}
-                    {#                                class="fas fa-long-arrow-alt-right ml-2"></i></span></button>#}
-                    {#            </from>#}
+        {% else %}
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fas fa-door-open"></i>
+                    <span class="badge badge-danger navbar-badge">Login</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <div class="card two bg-white px-5 py-4 mb-3">
+                        <form class="form-signin" action="/login" method="post">
+                            <div class="form-group">
+                                <input type="username" id="username" name="username" class="form-control" required
+                                       autofocus>
+                                <label class="form-control-placeholder" for="username">Username</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="inputPassword" name="password" class="form-control" required>
+                                <label class="form-control-placeholder" for="inputPassword">Password</label>
+                            </div>
+                            <input id="submitLocal" class="btn btn-lg btn-primary btn-block text-uppercase"
+                                   type="submit" value="Log in">
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        {% endif %}
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">

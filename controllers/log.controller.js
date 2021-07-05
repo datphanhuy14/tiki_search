@@ -12,6 +12,6 @@ module.exports = {
             return next();
         }
         // ...
-        res.redirect('/login');
+        res.redirect('/');
     }
 }

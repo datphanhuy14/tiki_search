@@ -9,16 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ma_sach: {
-        type: Sequelize.STRING
+        type: Sequelize.BIGINT
       },
       ten_sach: {
         type: Sequelize.TEXT
       },
       gia_bia: {
-        type: Sequelize.STRING
+        type: Sequelize.BIGINT
       },
       phan_loai: {
-        type: Sequelize.BIGINT
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

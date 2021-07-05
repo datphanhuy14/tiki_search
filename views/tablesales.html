@@ -10,13 +10,14 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item active">DataTables</li>
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -96,14 +97,14 @@
                                                     {% if current == 1 %}
                                                         <ul class="pagination justify-content-end">
                                                             <li class="paginate_button page-item previous disabled"
-                                                                id="example2_previous"><a href="/table/{{ current -1 }}" aria-controls="example2"
+                                                                id="example2_previous"><a href="/tablesales/{{ current - 1 }}" aria-controls="example2"
                                                                                           data-dt-idx="0" tabindex="0"
                                                                                           class="page-link">Previous</a>
                                                             </li>
                                                     {% else %}
                                                         <ul class="pagination justify-content-end">
                                                             <li class="paginate_button page-item previous "
-                                                                id="example2_previous"><a href="/table/{{ current -1 }}" aria-controls="example2"
+                                                                id="example2_previous"><a href="/tablesales/{{ current -1 }}" aria-controls="example2"
                                                                                           data-dt-idx="0" tabindex="0"
                                                                                           class="page-link">Previous</a>
                                                             </li>
@@ -113,7 +114,7 @@
                                                                 {% for i in range(current-1,current+3) %}
 
                                                                     <li class="paginate_button page-item active"><a
-                                                                                href="/table/{{ i }}"
+                                                                                href="/tablesales/{{ i }}"
                                                                                 aria-controls="example2"
                                                                                 data-dt-idx="1"
                                                                                 tabindex="0"
@@ -133,7 +134,7 @@
                                                             {% else %}
                                                                 {% for i in range(1,5) %}
                                                                     <li class="paginate_button page-item active"><a
-                                                                                href="/table/{{ i }}"
+                                                                                href="/tablesales/{{ i }}"
                                                                                 aria-controls="example2"
                                                                                 data-dt-idx="1"
                                                                                 tabindex="0"
@@ -144,7 +145,7 @@
                                                         {% else %}
                                                             {% for i in range(1,pages+1) %}
                                                                 <li class="paginate_button page-item active"><a
-                                                                            href="/table/{{ i }}"
+                                                                            href="/tablesales/{{ i }}"
                                                                             aria-controls="example2"
                                                                             data-dt-idx="1"
                                                                             tabindex="0"
@@ -160,7 +161,7 @@
                                                         </ul>
                                                     {% else %}
                                                         <li class="paginate_button page-item next" id="example2_next"><a
-                                                                    href="#" aria-controls="example2" data-dt-idx="7"
+                                                                    href="/tablesales/{{ current + 1 }}" aria-controls="example2" data-dt-idx="7"
                                                                     tabindex="0" class="page-link">Next</a>
                                                         </li>
                                                         </ul>

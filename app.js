@@ -12,7 +12,19 @@ let redisClient = redis.createClient();
 const db = require('./db');
 const exToJson = require('./excel_book')
 
-exToJson();
+db.sequelize.sync().then(async ()=>{
+    await db.user.findOrCreate({
+        where: {
+            username: 'admin'
+        },
+        defaults: {
+            username: 'admin',
+            password: "admin"
+        }
+    })
+    await exToJson();
+});
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -50,9 +62,23 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
-});
+    res.status(404);
 
+    // respond with html page
+    if (req.accepts('html')) {
+        res.render('404', { url: req.url });
+        return;
+    }
+
+    // respond with json
+    if (req.accepts('json')) {
+        res.json({ error: 'Not found' });
+        return;
+    }
+
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+});
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -62,15 +88,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('err',{err : err.message});
 });
-db.sequelize.sync().then(async ()=>{
-    await db.user.findOrCreate({
-        where: {
-            username: 'admin'
-        },
-        defaults: {
-            username: 'admin',
-            password: "admin"
-        }
-    })
-});
+
 module.exports = app;
