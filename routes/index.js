@@ -9,7 +9,7 @@ router.get('/table/:page', isLog.isLogged, conTroller.sachTongHop);
 router.get('/table/', isLog.isLogged, conTroller.sachTongHop);
 router.get('/tablesales/:page', isLog.isLogged, conTroller.sachThanhLy);
 router.get('/tablesales/', isLog.isLogged, conTroller.sachThanhLy);
-
+router.get('/tikibooks',isLog.isLogged,conTroller.tikiBooks)
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/', // chuyển hướng tới trang được bảo vệ
     failureRedirect: '/login',

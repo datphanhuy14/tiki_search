@@ -13,18 +13,23 @@ const db = require('./db');
 const exToJson = require('./excel_book')
 const axiosTiki = require('./axios')
 
+// LOAD DATA API AND FILE EXCEL
+
 db.sequelize.sync().then(async ()=>{
-    await axiosTiki;
-    await db.user.findOrCreate({
-        where: {
-            username: 'admin'
-        },
-        defaults: {
-            username: 'admin',
-            password: "admin"
-        }
+
+    // await db.user.findOrCreate({
+    //     where: {
+    //         username: 'admin'
+    //     },
+    //     defaults: {
+    //         username: 'admin',
+    //         password: "admin"
+    //     }
+    // })
+    axiosTiki.testAxios().then(() => {
+        console.log("Load successfully");
     })
-    await exToJson();
+    // exToJson();
 });
 
 

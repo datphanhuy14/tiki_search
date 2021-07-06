@@ -11,7 +11,7 @@ let getLink = async () => {
 }
 let testAxios = async () => {
     let _links = await getLink();
-    console.log(_links);
+    console.log('LOADED : ', _links.length);
     for (let _link of _links) {
         await axios.get(_link)
             .then(function (response) {
@@ -21,18 +21,19 @@ let testAxios = async () => {
                 let results = response.data.data;
                 for (let _result of results) {
                     // if (regex.test(_result.discount_rate) === 'true') {
-                        _results.push({
-                            id: _result.id,
-                            ten_sach: _result.name,
-                            sku: _result.sku,
-                            gia_bia: _result.price,
-                            discount_rate: _result.discount_rate
-                        })
+                    _results.push({
+                        id: _result.id,
+                        ten_sach: _result.name,
+                        sku: _result.sku,
+                        gia_bia: _result.price,
+                        discount_rate: _result.discount_rate
+                    })
                     // }
                 }
                 return _results
             })
             .then(async (_results) => {
+
                 for (let _saveResult of _results) {
                     let check = await db.tbook.findOne(
                         {
@@ -42,7 +43,43 @@ let testAxios = async () => {
                         }
                     )
                     if (!check)
-                        await db.tbook.create(_saveResult,{raw : true});
+                        await db.tbook.create(_saveResult, {raw: true});
+                    else {
+                        if (_saveResult.gia_bia != check.gia_bia
+                            || _saveResult.discount_rate != check.discount_rate
+                            || _saveResult.ten_sach != check.ten_sach
+                            || _saveResult.sku != check.sku) {
+                            console.log('Id valid --> Find Log');
+                            let check_v2 = await db.mclog.findOne({
+                                    where:
+                                        {
+                                            id_update: _saveResult.id
+                                        }
+                                }
+                            )
+                            if (!check_v2) {
+                                console.log('Create Logs 1');
+                                await db.tbook.update(_saveResult, {where: {id: check.id}});
+                                await db.mclog.create(
+                                    {
+                                        count: 1,
+                                        note: 'change db',
+                                        id_update: check.id
+                                    }
+                                )
+                                console.log('Saved Change Database')
+                            } else {
+                                console.log('Create Logs 1 ');
+                                await db.tbook.update(_saveResult, {where: {id: check.id}});
+                                await db.mclog.create({
+                                        count: parseInt(check_v2.count) + 1,
+                                        note: 'changed db',
+                                        id_update: _saveResult.id
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
             })
             .then(() => {
@@ -57,6 +94,6 @@ let testAxios = async () => {
             });
     }
 }
-modules.exports = {
+module.exports = {
     testAxios
 }
