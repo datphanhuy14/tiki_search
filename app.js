@@ -17,15 +17,15 @@ const axiosTiki = require('./axios')
 
 db.sequelize.sync().then(async ()=>{
 
-    // await db.user.findOrCreate({
-    //     where: {
-    //         username: 'admin'
-    //     },
-    //     defaults: {
-    //         username: 'admin',
-    //         password: "admin"
-    //     }
-    // })
+    await db.user.findOrCreate({
+        where: {
+            username: 'admin'
+        },
+        defaults: {
+            username: 'admin',
+            password: "admin"
+        }
+    })
     axiosTiki.testAxios().then(() => {
         console.log("Load successfully");
     })

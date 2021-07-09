@@ -11,7 +11,7 @@ let getLink = async () => {
 }
 let testAxios = async () => {
     let _links = await getLink();
-    console.log('LOADED : ', _links.length);
+    console.log('LOADING : ', _links.length);
     for (let _link of _links) {
         await axios.get(_link)
             .then(function (response) {
@@ -33,7 +33,6 @@ let testAxios = async () => {
                 return _results
             })
             .then(async (_results) => {
-
                 for (let _saveResult of _results) {
                     let check = await db.tbook.findOne(
                         {
@@ -45,10 +44,10 @@ let testAxios = async () => {
                     if (!check)
                         await db.tbook.create(_saveResult, {raw: true});
                     else {
-                        if (_saveResult.gia_bia != check.gia_bia
-                            || _saveResult.discount_rate != check.discount_rate
-                            || _saveResult.ten_sach != check.ten_sach
-                            || _saveResult.sku != check.sku) {
+                        if (check.gia_bia != _saveResult.gia_bia
+                            || check.discount_rate != _saveResult.discount_rate
+                            || check.ten_sach != _saveResult.ten_sach
+                            || check.sku != _saveResult.sku) {
                             console.log('Id valid --> Find Log');
                             let check_v2 = await db.mclog.findOne({
                                     where:
@@ -69,7 +68,7 @@ let testAxios = async () => {
                                 )
                                 console.log('Saved Change Database')
                             } else {
-                                console.log('Create Logs 1 ');
+                                console.log('Create Logs 2');
                                 await db.tbook.update(_saveResult, {where: {id: check.id}});
                                 await db.mclog.create({
                                         count: parseInt(check_v2.count) + 1,
@@ -77,6 +76,7 @@ let testAxios = async () => {
                                         id_update: _saveResult.id
                                     }
                                 )
+                                console.log('Saved Change Database')
                             }
                         }
                     }
