@@ -53,6 +53,7 @@ let tikiBooks = async (req, res) => {
         _limit,
         _gte,
         _lte,
+        _search
     })
 }
 let sachThanhLy = async function (req, res) {
